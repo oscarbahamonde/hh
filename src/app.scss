@@ -1,0 +1,32 @@
+@import url("tailwindcss/tailwind.css");
+@import url("@mdi/font/css/materialdesignicons.css");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Serif&family=Oleo+Script+Swash+Caps&family=Raleway&display=swap");
+
+
+.social-icon {
+  @apply mdi  text-2xl btn btn-circle btn-outline text-primary btn-primary;
+  &:hover {
+    @apply scale-125;
+  }
+}
+button {
+  @apply btn;
+}
+
+i {
+  @apply mdi;
+}
+
+.font-sans {
+  font-family: "Raleway", sans-serif;
+}
+
+.font-serif {
+  font-family: "IBM Plex Serif", serif;
+}
+.font-mono {
+  font-family: "IBM Plex Mono", monospace;
+}
+.font-script {
+  font-family: "Oleo Script Swash Caps", cursive;
+}

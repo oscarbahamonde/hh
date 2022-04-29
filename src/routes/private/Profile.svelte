@@ -1,0 +1,69 @@
+<script>
+  import { user, auth } from "../../store";
+  import { signOut } from "@firebase/auth";
+  import { onMount} from "svelte";
+  
+  async function userOut() {
+    await signOut(auth);
+    $user = null;
+  }
+
+
+
+
+
+
+
+  
+  let body = JSON.stringify(
+   { displayName: $user.user.displayName,  
+    email: $user.user.email,
+    photoURL: $user.user.photoURL,
+    s_id: $user.user.uid
+   })
+
+   $: onMount(async()=>{
+     console.log(JSON.stringify($user))
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        body: body,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const data = await response.json()
+      console.log(data)
+
+   })
+</script>
+
+<div class="flex flex-col items-center w-screen">
+  <div
+    class="rounded-box col-span-3 row-span-3 mx-2 grid w-72 flex-shrink-0 place-items-center items-center gap-4 p-4 py-8 shadow-xl xl:mx-0 xl:w-full"
+  >
+    <div class="online avatar">
+      <div
+        class="mask mask-squircle bg-base-content h-24 w-24 bg-opacity-10 p-px"
+      >
+        <img
+          src={$user.user.photoURL}
+          width="94"
+          height="94"
+          alt={$user.user.displayName}
+          class="mask mask-squircle"
+        />
+      </div>
+    </div>
+    <div>
+      <div class="text-center">
+        <div class="text-lg font-extrabold">{$user.user.displayName}</div>
+        <div class="text-base-content/70 my-3 text-sm">
+          {$user.user.email}
+        </div>
+      </div>
+    </div>
+    <button class="btn-error btn-outline rounded" on:click={userOut}
+      >Logout</button
+    >
+  </div>
+</div>
